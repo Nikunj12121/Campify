@@ -20,23 +20,27 @@ module.exports.createCampground = async(req,res)=>{
 
 }
 
-module.exports.showCampground = async(req,res)=>{
-    const campground = await Campground.findById(req.params.id).populate({
-        path:'reviews',
-        populate:{
-            path:'author'
+module.exports.showCampground = async (req, res) => {
+    try {
+        const campground = await Campground.findById(req.params.id)
+            .populate({
+                path: 'reviews',
+                populate: { path: 'author' }
+            })
+            .populate('author');
+
+        if (!campground) {
+            req.flash('error', 'Cannot find that campground');
+            return res.redirect('/campgrounds');
         }
-    }).populate('author');
 
-    
-   
-    if(!campground){
-        req.flash('error','Cannot find that campground');
-       return res.redirect('/campgrounds');
+        res.render('campgrounds/show', { campground });
+    } catch (err) {
+        console.error(err);
+        req.flash('error', 'Something went wrong!');
+        res.redirect('/campgrounds');
     }
-    res.render('campgrounds/show',{campground});
-
-}
+};
 
 
 
