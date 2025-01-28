@@ -1,1 +1,2 @@
-# Campify
+Campify - Campground Management System
+Campify is a web-based application that allows users to explore and manage campgrounds. Users can create, edit, delete campgrounds, and even leave reviews for each campground. The app provides functionalities for user authentication, campground management, and review submission, making it the perfect platform for outdoor enthusiasts to share their experiences.
